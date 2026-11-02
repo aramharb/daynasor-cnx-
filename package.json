@@ -1,0 +1,24 @@
+{
+  "name": "dino-dash",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Endless dino runner for mobile: minimal Classic mode offline, colorful Jurassic mode with dino abilities, power-ups and egg unlocks when online.",
+  "scripts": {
+    "serve": "npx --yes http-server www -p 8123 -c-1",
+    "icons": "node tools/make-icons.mjs",
+    "cap:add:android": "npx cap add android",
+    "cap:add:ios": "npx cap add ios",
+    "cap:sync": "npx cap sync",
+    "android": "npx cap sync android && npx cap open android",
+    "ios": "npx cap sync ios && npx cap open ios"
+  },
+  "dependencies": {
+    "@capacitor/android": "^6.1.2",
+    "@capacitor/core": "^6.1.2",
+    "@capacitor/ios": "^6.1.2",
+    "@capacitor/network": "^6.0.2"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.1.2"
+  }
+}

@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#202124">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Dino Dash</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="classic">
+  <canvas id="game" aria-label="Dino Dash game"></canvas>
+
+  <!-- in-game controls -->
+  <div id="controls" class="hidden">
+    <button id="pauseBtn" class="round-btn" aria-label="Pause">II</button>
+    <button id="duckBtn" class="round-btn big" aria-label="Duck">▼</button>
+    <button id="abilityBtn" class="round-btn big ability" aria-label="Ability"><span id="abilityName">Roar</span></button>
+  </div>
+
+  <div id="netPill" class="pill offline"><span class="dot"></span><span id="netText">Checking…</span></div>
+
+  <!-- main menu -->
+  <section id="menu" class="screen">
+    <div class="panel menu-panel">
+      <h1 class="title"><span>DINO</span> <span>DASH</span></h1>
+      <p id="modeLine" class="mode-line">Offline · Classic mode</p>
+      <canvas id="menuDino" width="160" height="120"></canvas>
+      <p id="menuDinoName" class="dino-name">Rexy</p>
+      <button id="playBtn" class="btn primary">▶ PLAY</button>
+      <button id="hatchBtn" class="btn egg hidden">🥚 Hatch egg <b id="eggCount">1</b></button>
+      <div class="row">
+        <button id="dinosBtn" class="btn">🦖 Dinos <small id="dinoCount">1/10</small></button>
+        <button id="settingsBtn" class="btn">⚙</button>
+      </div>
+      <p class="hint" id="menuHint">Tap / Space to jump · Swipe down / ↓ to duck</p>
+      <div class="stats"><span>🪙 <b id="coinTotal">0</b></span><span>🏆 <b id="hiTotal">0</b></span></div>
+    </div>
+  </section>
+
+  <!-- dino collection -->
+  <section id="dinos" class="screen hidden">
+    <div class="panel wide">
+      <header class="bar">
+        <button class="btn small back" data-back>←</button>
+        <h2>Dino Collection</h2>
+        <span class="coins">🪙 <b id="coinTotal2">0</b></span>
+      </header>
+      <p class="sub" id="collectionNote">Every time your phone connects to the internet you get a 🥚 egg. Hatch it to unlock a random dino!</p>
+      <div id="dinoGrid" class="grid"></div>
+      <div class="detail" id="dinoDetail"></div>
+      <button id="buyEggBtn" class="btn egg">🥚 Buy egg · 🪙 250</button>
+    </div>
+  </section>
+
+  <!-- settings -->
+  <section id="settings" class="screen hidden">
+    <div class="panel">
+      <header class="bar">
+        <button class="btn small back" data-back>←</button>
+        <h2>Settings</h2><span></span>
+      </header>
+      <label class="toggle"><input type="checkbox" id="optSound"> Sound</label>
+      <label class="toggle"><input type="checkbox" id="optClassic"> Always play Classic mode</label>
+      <p class="sub">Classic mode is the minimal black &amp; white runner. Jurassic mode (colors, coins, power-ups, dino abilities, biomes) needs an internet connection.</p>
+      <button id="resetBtn" class="btn danger">Reset progress</button>
+    </div>
+  </section>
+
+  <!-- hatch -->
+  <section id="hatch" class="screen hidden">
+    <div class="panel hatch-panel">
+      <h2 id="hatchTitle">A wild egg appeared!</h2>
+      <div id="eggWrap"><div id="egg"><i></i><i></i><i></i></div></div>
+      <canvas id="hatchDino" width="200" height="150" class="hidden"></canvas>
+      <p id="hatchText" class="sub">Tap the egg to crack it!</p>
+      <button id="hatchDone" class="btn primary hidden">Awesome!</button>
+    </div>
+  </section>
+
+  <!-- pause -->
+  <section id="pause" class="screen hidden">
+    <div class="panel">
+      <h2>Paused</h2>
+      <button id="resumeBtn" class="btn primary">▶ Resume</button>
+      <button id="quitBtn" class="btn">Menu</button>
+    </div>
+  </section>
+
+  <!-- game over -->
+  <section id="over" class="screen hidden">
+    <div class="panel over-panel">
+      <h2 id="overTitle">GAME OVER</h2>
+      <div class="over-stats">
+        <div><small>Score</small><b id="overScore">0</b></div>
+        <div><small>Best</small><b id="overBest">0</b></div>
+        <div id="overCoinsBox"><small>Coins</small><b id="overCoins">0</b></div>
+      </div>
+      <p id="overNote" class="sub"></p>
+      <button id="retryBtn" class="btn primary">↻ Retry</button>
+      <button id="overMenuBtn" class="btn">Menu</button>
+    </div>
+  </section>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

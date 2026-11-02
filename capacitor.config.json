@@ -1,0 +1,7 @@
+{
+  "appId": "com.dinodash.game",
+  "appName": "Dino Dash",
+  "webDir": "www",
+  "backgroundColor": "#f7f7f7",
+  "android": { "allowMixedContent": false }
+}
