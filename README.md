@@ -14,21 +14,23 @@ If the connection drops or comes back during a run, the game **changes live** wi
 ## Features
 
 ### Online / Jurassic mode
-- **10 dinosaurs** in 4 rarities (Common, Rare, Epic, Legendary), each with its own pixel art and ability:
+- **11 real dinosaurs**, each with a pixel sprite of its true shape (two legs or four, plates, frill, sail, armor, crest), its real geological era, and a real fact. Each one also has **one ability** (on a cooldown) and **one SUPER POWER**:
 
-| Dino | Rarity | Ability |
-|---|---|---|
-| Rexy | Common (starter) | **Roar**: blasts away every obstacle in front of you |
-| Zip (raptor) | Common | **Dash**: invincible speed burst |
-| Plato (stego) | Common | **Plate Armor**: a shield that absorbs one hit |
-| Bonk (pachy) | Common | **Super Jump**: very high jump, invincible while rising |
-| Trike (tricera) | Rare | **Charge**: rams through ground obstacles for 3s |
-| Echo (parasaur) | Rare | **Echo Call**: coin magnet + double coins |
-| Tank (ankylo) | Rare | **Quake**: tail slam that clears the ground |
-| Skye (ptero) | Epic | **Soar**: flies for 3s · passive: double jump + glide |
-| Sail (spino) | Epic | **Time Warp**: slows the world |
-| Neon Rex | Legendary | **Hyper Mode**: invincible + magnet + x2 coins · passive: double jump |
+| Dinosaur | Rarity | ⚡ Ability | 🌟 SUPER POWER |
+|---|---|---|---|
+| Tyrannosaurus rex | Starter | **Roar**: blasts away obstacles ahead | **King of the Dinos**: grows GIANT with a crown, crushes everything, coins rain down |
+| Velociraptor | Common | **Dash**: invincible speed burst | **Raptor Pack**: 3 raptor friends run ahead and pounce on every obstacle |
+| Pachycephalosaurus | Common | **Super Jump**: huge invincible jump | **Boulder Roll**: rolls into a spinning, bouncing skull-ball |
+| Parasaurolophus | Common | **Echo Call**: magnet + ×2 coins | **Golden Song**: its crest plays music that turns every obstacle into gold coins |
+| Stegosaurus | Rare | **Plate Armor**: a shield that absorbs one hit | **Plate Cyclone**: its plates orbit it like saw blades |
+| Triceratops | Rare | **Charge**: rams through the ground for 3s | **Stampede**: a whole herd runs across the screen |
+| Dilophosaurus | Rare | **Venom Spit**: frill + a venom glob that melts an obstacle | **Toxic Fog**: a poison cloud ahead melts everything |
+| Ankylosaurus | Epic | **Quake**: tail-slam clears the ground | **Iron Fortress**: turns to steel; obstacles bounce off like pinballs and give coins |
+| Pteranodon | Epic | **Soar**: flies for 3s · passive: double jump + glide | **Thunder Wings**: flies through a storm (tap to flap) and strikes obstacles with lightning |
+| Spinosaurus | Legendary | **River Dive**: goes underground and only its sail shows | **Tsunami Surf**: surfs a giant wave that washes everything away |
+| Brachiosaurus | Legendary | **Neck Sweep**: knocks every flyer and meteor out of the sky | **Meteor Rain**: calls down a meteor shower on the obstacles |
 
+- **SUPER meter**: fills over time and faster when you collect coins, pick up power-ups, or smash obstacles. When it's full, the rainbow 🌟 button glows. Tap it (or press C/Z) to unleash the dinosaur's super power for 6–8 seconds.
 - **Egg unlocks**: each time the phone goes online you get a free 🥚 (at most once every 5 minutes, so toggling Wi-Fi can't be farmed). You can also buy eggs for 250 coins. Rarer dinos are less likely to hatch.
 - **5 biomes** that change every 600 points: Jungle → Desert → Glacier → Volcano (meteors!) → Cosmic (UFOs + meteors). Each has its own parallax scenery, weather (leaves, dust, snow, embers, shooting stars) and obstacles.
 - **Power-ups**: 🛡️ Shield, 🧲 Magnet, ×2 Coins, 🚀 Rocket.
@@ -44,6 +46,7 @@ If the connection drops or comes back during a run, the game **changes live** wi
 | Jump (hold = higher) | tap anywhere | Space / ↑ |
 | Duck / fast-fall | swipe down or the ▼ button | ↓ |
 | Dino ability | ⚡ button (bottom right) | X / Shift |
+| SUPER power | 🌟 SUPER button (when full) | C / Z |
 | Pause | II button | P / Esc |
 
 ## Project structure

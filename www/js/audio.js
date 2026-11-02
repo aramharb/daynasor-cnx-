@@ -55,6 +55,14 @@ const SOUNDS = {
   bonus: () => tone({ f: 700, to: 1400, dur: 0.15, type: 'square', vol: 0.05 }),
   egg: () => [392, 494, 587, 784, 988].forEach((f, i) => tone({ f, dur: 0.14, delay: i * 0.08, type: 'triangle', vol: 0.08 })),
   crack: () => noise(0.08, 0.15),
+  super: () => {
+    [262, 330, 392, 523, 659, 784, 1047].forEach((f, i) => tone({ f, dur: 0.16, delay: i * 0.05, type: 'sawtooth', vol: 0.05 }));
+    tone({ f: 80, to: 40, dur: 0.6, type: 'sine', vol: 0.2 });
+    noise(0.4, 0.08);
+  },
+  zap: () => { noise(0.12, 0.14); tone({ f: 1800, to: 200, dur: 0.15, type: 'sawtooth', vol: 0.04 }); },
+  splash: () => { noise(0.2, 0.08); tone({ f: 500, to: 150, dur: 0.18, type: 'sine', vol: 0.06 }); },
+  chomp: () => { tone({ f: 300, to: 120, dur: 0.08, type: 'square', vol: 0.06 }); tone({ f: 260, to: 100, dur: 0.08, delay: 0.09, type: 'square', vol: 0.06 }); },
   online: () => [262, 330, 392, 523, 659, 784].forEach((f, i) => tone({ f, dur: 0.12, delay: i * 0.05, type: 'triangle', vol: 0.06 })),
   offline: () => [523, 392, 262].forEach((f, i) => tone({ f, dur: 0.12, delay: i * 0.08, type: 'square', vol: 0.04 })),
 };

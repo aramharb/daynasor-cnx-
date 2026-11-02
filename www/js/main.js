@@ -80,6 +80,7 @@ let menuAnim = 0;
 function refreshMenu() {
   const def = getDino(store.get('selected'));
   $('menuDinoName').textContent = def.name;
+  $('menuDinoPower').textContent = colorful ? `⚡ ${def.ability.name} · 🌟 SUPER: ${def.super.name}` : def.era;
   $('modeLine').textContent = colorful
     ? 'Online · Jurassic mode — colors, coins & powers!'
     : online ? 'Classic mode (forced in settings)' : 'Offline · Classic mode — connect for Jurassic mode';
@@ -90,13 +91,13 @@ function refreshMenu() {
   $('coinTotal').textContent = store.get('coins');
   $('hiTotal').textContent = colorful ? store.get('hiColor') : store.get('hiClassic');
   $('menuHint').textContent = colorful
-    ? 'Tap to jump · Swipe down to duck · ⚡ button = dino ability'
+    ? 'Tap to jump · Swipe down to duck · ⚡ ability · 🌟 SUPER when the meter is full'
     : 'Tap / Space to jump · Swipe down / ↓ to duck';
 }
 setInterval(() => {
   if (screen !== 'menu') return;
   menuAnim++;
-  drawPreview($('menuDino'), getDino(store.get('selected')), { classic: !colorful, hue: menuAnim * 20, frame: menuAnim % 2 });
+  drawPreview($('menuDino'), getDino(store.get('selected')), { classic: !colorful, frame: menuAnim % 2 });
 }, 120);
 
 function play() {
@@ -106,6 +107,7 @@ function play() {
   game.start();
   const a = getDino(store.get('selected')).ability;
   $('abilityName').textContent = a.name;
+  lastAb = lastSuper = '';
   show('none');
 }
 
@@ -144,7 +146,7 @@ function buildCollection() {
     card.className = `card${has ? '' : ' locked'}${d.id === selected ? ' selected' : ''}`;
     const cv = document.createElement('canvas');
     cv.width = 80; cv.height = 60;
-    drawPreview(cv, d, { locked: !has, classic: has && !colorful, hue: 300 });
+    drawPreview(cv, d, { locked: !has, classic: has && !colorful });
     const name = document.createElement('span');
     name.textContent = has ? d.name : '???';
     const rar = document.createElement('span');
@@ -173,14 +175,28 @@ function buildCollection() {
   const r = title.querySelector('.rar');
   r.textContent = RARITY[d.rarity].label;
   if (colorful) r.style.color = RARITY[d.rarity].color;
-  const ab = document.createElement('div');
-  ab.innerHTML = `<span class="ab"></span> <span></span>`;
-  ab.firstElementChild.textContent = `⚡ ${d.ability.name}:`;
-  ab.lastElementChild.textContent = has ? d.ability.desc : 'Hatch eggs to discover this dino and its power.';
-  const blurb = document.createElement('div');
-  blurb.className = 'sub';
-  blurb.textContent = has ? d.blurb : '';
-  det.append(title, ab, blurb);
+  const line = (cls, label, text) => {
+    const el = document.createElement('div');
+    el.innerHTML = `<span class="${cls}"></span> <span></span>`;
+    el.firstElementChild.textContent = label;
+    el.lastElementChild.textContent = text;
+    return el;
+  };
+  const era = document.createElement('div');
+  era.className = 'sub';
+  era.textContent = `🦴 ${d.era}`;
+  det.append(title, era);
+  if (has) {
+    det.append(line('ab', `⚡ ${d.ability.name}:`, d.ability.desc));
+    det.append(line('sp', `🌟 SUPER · ${d.super.name}:`, d.super.desc));
+    if (d.passiveDesc) det.append(line('ab', '✨ Passive:', d.passiveDesc));
+    const fact = document.createElement('div');
+    fact.className = 'sub fact';
+    fact.textContent = `📖 Real fact: ${d.fact}`;
+    det.append(fact);
+  } else {
+    det.append(line('ab', '🔒', 'Hatch eggs to discover this dinosaur, its ability and its SUPER power.'));
+  }
   if (!colorful) {
     const n = document.createElement('div');
     n.className = 'sub';
@@ -252,14 +268,16 @@ function revealHatch() {
   if (d) {
     game.setDino(d.id);
     cv.style.background = `radial-gradient(circle, ${RARITY[d.rarity].color}88, transparent 70%)`;
-    drawPreview(cv, d, { hue: 0 });
+    drawPreview(cv, d, {});
     $('hatchTitle').textContent = `You hatched ${d.name}!`;
-    txt.innerHTML = '<span class="rarity-tag"></span><br><b></b><br><span></span>';
+    txt.innerHTML = '<span class="rarity-tag"></span><br><b></b><br><span></span><br><b class="sp"></b><br><span class="spd"></span>';
     const tag = txt.querySelector('.rarity-tag');
     tag.textContent = RARITY[d.rarity].label;
     tag.style.background = RARITY[d.rarity].color;
     txt.querySelector('b').textContent = `⚡ ${d.ability.name}`;
-    txt.querySelector('span:last-child').textContent = d.ability.desc;
+    txt.querySelectorAll('span')[1].textContent = d.ability.desc;
+    txt.querySelector('.sp').textContent = `🌟 SUPER: ${d.super.name}`;
+    txt.querySelector('.spd').textContent = d.super.desc;
   } else {
     cv.style.background = 'none';
     cv.getContext('2d').clearRect(0, 0, cv.width, cv.height);
@@ -334,6 +352,7 @@ const duckBtn = $('duckBtn');
 duckBtn.addEventListener('pointerdown', (e) => { e.preventDefault(); e.stopPropagation(); game.duck(true); });
 ['pointerup', 'pointercancel', 'pointerleave'].forEach((ev) => duckBtn.addEventListener(ev, () => game.duck(false)));
 $('abilityBtn').addEventListener('pointerdown', (e) => { e.preventDefault(); e.stopPropagation(); game.useAbility(); });
+$('superBtn').addEventListener('pointerdown', (e) => { e.preventDefault(); e.stopPropagation(); game.useSuper(); });
 
 // ------------------------------------------------------------------ keyboard
 window.addEventListener('keydown', (e) => {
@@ -347,6 +366,8 @@ window.addEventListener('keydown', (e) => {
   } else if (k === 'ArrowDown' || k === 'KeyS') {
     e.preventDefault();
     if (screen === 'none') game.duck(true);
+  } else if (k === 'KeyC' || k === 'KeyZ' || k === 'KeyQ') {
+    if (screen === 'none') game.useSuper();
   } else if (k === 'KeyX' || k === 'KeyE' || k === 'ShiftLeft' || k === 'ShiftRight') {
     if (screen === 'none') game.useAbility();
   } else if (k === 'Escape' || k === 'KeyP') {
@@ -361,8 +382,19 @@ window.addEventListener('keyup', (e) => {
 
 // ------------------------------------------------------------------ HUD sync + resize
 let lastAb = '';
+let lastSuper = '';
 (function hudLoop() {
   if (screen === 'none' && colorful) {
+    const sp = game.superInfo();
+    const skey = `${sp.full}|${sp.active}|${Math.round(sp.pct * 100)}`;
+    if (skey !== lastSuper) {
+      lastSuper = skey;
+      const sb = $('superBtn');
+      sb.style.setProperty('--p', sp.pct.toFixed(3));
+      sb.classList.toggle('full', sp.full && !sp.active);
+      sb.classList.toggle('active', sp.active);
+      $('superPct').textContent = sp.active ? 'ON!' : sp.full ? 'READY' : `${Math.floor(sp.pct * 100)}%`;
+    }
     const a = game.abilityInfo();
     const key = `${a.ready}|${Math.round(a.pct * 40)}`;
     if (key !== lastAb) {

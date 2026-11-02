@@ -21,6 +21,7 @@
     <button id="pauseBtn" class="round-btn" aria-label="Pause">II</button>
     <button id="duckBtn" class="round-btn big" aria-label="Duck">▼</button>
     <button id="abilityBtn" class="round-btn big ability" aria-label="Ability"><span id="abilityName">Roar</span></button>
+    <button id="superBtn" class="round-btn big super" aria-label="Super power"><span>SUPER</span><small id="superPct">25%</small></button>
   </div>
 
   <div id="netPill" class="pill offline"><span class="dot"></span><span id="netText">Checking…</span></div>
@@ -38,6 +39,7 @@
         <button id="dinosBtn" class="btn">🦖 Dinos <small id="dinoCount">1/10</small></button>
         <button id="settingsBtn" class="btn">⚙</button>
       </div>
+      <p class="sub dino-era" id="menuDinoPower"></p>
       <p class="hint" id="menuHint">Tap / Space to jump · Swipe down / ↓ to duck</p>
       <div class="stats"><span>🪙 <b id="coinTotal">0</b></span><span>🏆 <b id="hiTotal">0</b></span></div>
     </div>
@@ -52,8 +54,8 @@
         <span class="coins">🪙 <b id="coinTotal2">0</b></span>
       </header>
       <p class="sub" id="collectionNote">Every time your phone connects to the internet you get a 🥚 egg. Hatch it to unlock a random dino!</p>
-      <div id="dinoGrid" class="grid"></div>
       <div class="detail" id="dinoDetail"></div>
+      <div id="dinoGrid" class="grid"></div>
       <button id="buyEggBtn" class="btn egg">🥚 Buy egg · 🪙 250</button>
     </div>
   </section>

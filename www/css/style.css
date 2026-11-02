@@ -53,6 +53,7 @@ body.classic .screen { background: rgba(247, 247, 247, .35); }
 }
 body.classic .panel { box-shadow: none; border: 2px solid #535353; backdrop-filter: none; }
 .panel.wide { width: min(640px, 100%); }
+.panel > * { flex-shrink: 0; }
 @keyframes pop { from { transform: scale(.9); opacity: 0; } to { transform: none; opacity: 1; } }
 
 h1, h2 { margin: 0; }
@@ -119,7 +120,24 @@ body.classic .round-btn { background: transparent; border-color: #535353; color:
 }
 #abilityBtn.ready { border-color: #ffd54f; box-shadow: 0 0 16px #ffd54f; animation: pulse 1s infinite; }
 @keyframes pulse { 50% { transform: scale(1.06); } }
-body.classic #abilityBtn { display: none; }
+#superBtn {
+  right: calc(96px + var(--safe-r)); width: 60px; height: 60px; font-size: 10px; flex-direction: column; line-height: 1;
+  --p: 0; background: conic-gradient(rgba(224,64,251,.85) calc(var(--p) * 360deg), rgba(0,0,0,.35) 0);
+  text-shadow: 0 1px 2px #000; bottom: calc(20px + var(--safe-b));
+}
+#superBtn small { font-size: 9px; opacity: .85; margin-top: 2px; }
+#superBtn.full {
+  border-color: #fff; animation: superGlow .8s infinite alternate;
+  background: conic-gradient(#ff5252, #ffd740, #69f0ae, #40c4ff, #e040fb, #ff5252);
+}
+#superBtn.active { background: conic-gradient(rgba(255,255,255,.9) calc(var(--p) * 360deg), rgba(0,0,0,.35) 0); border-color: #ffd740; }
+@keyframes superGlow { from { box-shadow: 0 0 8px #e040fb; transform: scale(1); } to { box-shadow: 0 0 22px #40c4ff; transform: scale(1.08); } }
+body.classic #abilityBtn, body.classic #superBtn { display: none; }
+.dino-era { font-size: 11px; }
+.card span:nth-child(2) { font-size: 10px; line-height: 1.15; overflow-wrap: anywhere; text-align: center; }
+.detail .sp { color: #e040fb; font-weight: 800; }
+.detail .fact { font-style: italic; }
+body.classic .detail .sp { color: #535353; }
 
 /* ---------- collection ---------- */
 .bar { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
@@ -179,7 +197,7 @@ body.classic .detail { border: 1px dashed #535353; border-radius: 2px; }
 
 /* ---------- toast ---------- */
 .toast {
-  position: fixed; left: 50%; top: calc(40px + var(--safe-t)); transform: translateX(-50%);
+  position: fixed; left: 50%; bottom: calc(10px + var(--safe-b)); transform: translateX(-50%);
   background: rgba(0,0,0,.8); color: #fff; padding: 10px 16px; border-radius: 12px; z-index: 30;
   font-weight: 700; font-size: 14px; max-width: 90vw; text-align: center; animation: pop .3s ease;
 }
@@ -193,4 +211,6 @@ body.classic .toast { background: #535353; border-radius: 2px; }
   .btn.primary { font-size: 16px; }
   #eggWrap { height: 120px; }
   #egg { transform: scale(.85); }
+  #hatchDino { width: 120px; height: 90px; }
+  .detail { font-size: 12px; padding: 8px 10px; }
 }

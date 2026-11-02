@@ -1,5 +1,5 @@
 // Cache-first service worker so the game works with no internet (browser / PWA).
-const CACHE = 'dino-dash-v1';
+const CACHE = 'dino-dash-v2';
 const ASSETS = [
   './', 'index.html', 'manifest.webmanifest', 'css/style.css',
   'js/main.js', 'js/game.js', 'js/dinos.js', 'js/world.js', 'js/audio.js', 'js/store.js', 'js/network.js',

@@ -21,6 +21,9 @@ function load() {
     const raw = JSON.parse(localStorage.getItem(KEY) || '{}');
     const s = { ...defaults(), ...raw };
     if (!Array.isArray(s.unlocked) || !s.unlocked.includes('rex')) s.unlocked = ['rex', ...(s.unlocked || [])];
+    // v1 had a made-up "Neon Rex"; it became the real Brachiosaurus
+    s.unlocked = [...new Set(s.unlocked.map((id) => (id === 'neon' ? 'brachio' : id)))];
+    if (s.selected === 'neon') s.selected = 'brachio';
     return s;
   } catch {
     return defaults();
